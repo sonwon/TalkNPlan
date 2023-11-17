@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "176446686294",
+    "project_id": "talknplan-265c1",
+    "storage_bucket": "talknplan-265c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:176446686294:android:b5ae0b290cf06503c227f7",
+        "android_client_info": {
+          "package_name": "com.example.ai_scheduler"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNVHRuvV9gdGHHTT--ZmhogOFG9tnTPMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

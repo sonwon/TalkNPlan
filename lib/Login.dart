@@ -1,4 +1,7 @@
+import 'package:ai_scheduler/network.dart';
 import 'package:flutter/material.dart';
+
+String USER_ID="";
 
 void main() {
   runApp(const Login());
@@ -41,7 +44,7 @@ class LoginPageState extends State<LoginPage>{
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              child: Text("AI Scheduler",
+              child: Text("TalkNPlan",
               style: TextStyle(fontSize: 20, color: Colors.blueGrey),),
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 20.0),
             ),
@@ -67,24 +70,42 @@ class LoginPageState extends State<LoginPage>{
               padding: EdgeInsets.all(10.0),
             ),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   String id = idController.text;
                   String password = passwordController.text;
                   //서버에 보내서 로그인 처리 로그인 성공하면 result가 트루
-                  bool result = true;
-                  if(result){ //로그인 성공하면 Calender page로 이동
-                    Navigator.pushNamed(context, '/calendar');
-                  }
-                  else{//로그인 실패
-                    showDialog(
-                        context: context,
-                        builder: (context){
-                          return AlertDialog(content: Text("로그인 실패"));
-                        }
-                    );
+                  Network network = new Network();
+                  String result = await network.LoginTask(id, password);
+                  switch(result){
+                    case "SUCCESS":
+                      USER_ID = id;
+                      Navigator.pushNamed(context, '/calendar');
+                      break;
+                    case "NO_USER":
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return AlertDialog(content: Text("해당 ID가 없습니다"));
+                          }
+                      );
+                      break;
+                    case "WRONG_PASSWORD":
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return AlertDialog(content: Text("PASSWORD가 틀립니다"));
+                          }
+                      );
+                      break;
                   }
                 },
                 child: Text("로그인")
+            ),
+            TextButton(
+                onPressed: (){
+                  Navigator.pushNamed(context, '/register');
+                },
+                child: Text("회원가입", style: TextStyle(color: Colors.grey,),)
             ),
           ],
         ),
